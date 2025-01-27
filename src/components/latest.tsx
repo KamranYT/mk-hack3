@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { Image as IImage } from "sanity";
+import { urlForImage } from "@/sanity/lib/image";
 
 export const getProductsData = async () => {
-  const res = await client.fetch(`*[_type=="product"[2]]{
+  const res = await client.fetch(`*[_type=="product"]{
     name,
     description,
     price,
@@ -42,7 +43,7 @@ export default async function LatestProduct() {
               {item.image && (
                 <div className="w-full h-60 relative">
                   <Image
-                    src="/contact.png"
+                    src={urlForImage(item.image).url()}
                     alt={item.name}
                     layout="fill"
                     objectFit="cover"

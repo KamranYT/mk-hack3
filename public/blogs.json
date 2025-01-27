@@ -1,0 +1,27 @@
+[
+    {
+      "id": "1",
+      "title": "Mauris at orci non vulputate diam tincidunt nec.",
+      "date": "Aug 22, 2023",
+      "category": "Self Fashion",
+      "excerpt": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi repellat exercitationem vel! Velit doloribus illum ex ipsam voluptatem cupiditate, voluptate autem nesciunt quibusdam cum, exercitationem pariatur vitae non consequuntur laborum.",
+      "imageUrl": "/blog1.png"
+    },
+    {
+      "id": "2",
+      "title": "Aenean vitae in aliquam ultrices lectus.",
+      "date": "Aug 20, 2023",
+      "category": "Self Fashion",
+      "excerpt": "Consectetur adipiscing elit, sed do eiusmod tempor...",
+      "imageUrl": "/blog2.png"
+    },
+    {
+        "id": "3",
+        "title": "Sit nam congue feugiat nisl, mauris amet nisi. .",
+        "date": "Aug 20, 2023",
+        "category": "Self Fashion",
+        "excerpt": "Consectetur adipiscing elit, sed do eiusmod tempor...",
+        "imageUrl": "/blog3.png"
+      }
+  ]
+  
