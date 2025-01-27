@@ -4,11 +4,6 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 
 
-
-// export default async function ProductDetail({ 
-//     params,
-//  }: ProductDetailProps) {
-//   const { id } = params;
 export default async function ProductDetail({
     params,
   }: {

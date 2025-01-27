@@ -128,7 +128,7 @@ export default async function BlogPage() {
       </div>
     );
   } catch (error) {
-    // Handle errors and render a fallback UI
+    console.error(error);
     return (
       <div className="flex justify-center items-center h-screen">
         <h1 className="text-xl font-semibold text-red-500">
@@ -137,4 +137,5 @@ export default async function BlogPage() {
       </div>
     );
   }
+  
 }

@@ -10,11 +10,17 @@ interface Blog {
   category: string;
   date: string;
 }
-
+// 
 async function getBlogData(id: string): Promise<Blog | undefined> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL || ""}/blogs.json`
   );
+  // export default async function ProductDetail({
+  //   params,
+  // }: {
+  //   params: Promise<{ id: string }>
+  // }) {
+  //   const id = (await params).id
 
   if (!res.ok) {
     throw new Error("Failed to fetch blogs");
@@ -24,13 +30,24 @@ async function getBlogData(id: string): Promise<Blog | undefined> {
   return blogs.find((blog) => blog.id === id);
 }
 
-export default async function SingleBlogPage({ params }: { params: { id: string } }) {
-  const blog = await getBlogData(params.id);
+export default async function SingleBlogPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const blog = await getBlogData((await params).id);
 
-  // If blog not found, show a 404 page
   if (!blog) {
     notFound();
   }
+
+  // export default async function ProductDetail({
+  //   params,
+  // }: {
+  //   params: Promise<{ id: string }>
+  // }) {
+  //   const id = (await params).id
+
 
   return (
     <div>
