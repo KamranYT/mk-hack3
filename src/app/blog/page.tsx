@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface Blog {
   id: string;
@@ -56,9 +57,10 @@ export default async function BlogPage() {
                 className="mb-12 w-full sm:w-[400px] lg:w-[500px] flex flex-col items-center text-center"
               >
                 {/* Blog Image */}
-                <img
+                <Image
                   src={blog.imageUrl}
                   alt={blog.title}
+                  fill
                   className="w-full rounded-md object-cover"
                 />
                 {/* Blog Details */}

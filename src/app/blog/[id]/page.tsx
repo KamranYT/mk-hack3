@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Blog {
   id: string;
@@ -48,9 +49,10 @@ export default async function SingleBlogPage({ params }: { params: { id: string 
       <div className="flex flex-col lg:flex-row gap-8 px-4 sm:px-8 lg:px-64 mt-8 items-start justify-center">
         {/* Blog Content */}
         <div className="lg:w-3/5 flex flex-col items-center text-center">
-          <img
+          <Image
             src={blog.imageUrl}
             alt={blog.title}
+            fill
             className="w-full lg:w-[500px] rounded-md object-cover mb-8"
           />
           <div className="text-sm text-gray-500 mb-4">

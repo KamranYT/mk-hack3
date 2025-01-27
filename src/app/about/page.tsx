@@ -1,5 +1,6 @@
 import React from "react";
 import ShopexOffer from "@/components/ShopexOffer";
+import Image from "next/image";
 
 const ContactPage: React.FC = () => {
     return (
@@ -19,9 +20,10 @@ const ContactPage: React.FC = () => {
       <div className="container mx-auto flex flex-col md:flex-row items-center gap-8 px-4">
         {/* Image Section */}
         <div className="w-full md:w-1/2">
-          <img
+          <Image
             src="contact1.png"
             alt="About Us"
+            fill
             className="rounded-lg shadow-lg w-[570px] h-[409px]"
           />
         </div>
