@@ -2,10 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 const ShopexOffer: React.FC = () => {
   const offers = [
-    { img: "delivery.png", title: "Fast Delivery", description: "Experience quick and reliable delivery for all your purchases." },
-    { img: "cashback.png", title: "Secure Payment", description: "Enjoy safe and secure payment options for a worry-free experience." },
-    { img: "quality.png", title: "Quality Products", description: "Get access to top-quality products from trusted brands." },
-    { img: "24.png", title: "24/7 Support", description: "Our team is available around the clock to assist you." },
+    { img: "/delivery.png", title: "Fast Delivery", description: "Experience quick and reliable delivery for all your purchases." },
+    { img: "/cashback.png", title: "Secure Payment", description: "Enjoy safe and secure payment options for a worry-free experience." },
+    { img: "/quality.png", title: "Quality Products", description: "Get access to top-quality products from trusted brands." },
+    { img: "/24.png", title: "24/7 Support", description: "Our team is available around the clock to assist you." },
   ];
 
   return (
@@ -27,8 +27,8 @@ interface OfferCardProps {
 }
 
 const OfferCard: React.FC<OfferCardProps> = ({ img, title, description }) => (
-  <div className="w-[270px] h-[320px] bg-white shadow-lg rounded-lg flex flex-col items-center p-5 text-center">
-    <Image src={img} alt={title} fill className="w-16 h-16 mb-4" />
+  <div className="w-[270px] bg-white shadow-lg rounded-lg flex flex-col items-center p-5 text-center">
+    <Image src={img} alt={title} width={16} height={16} className="w-16 h-16 mb-4" />
     <h3 className="text-lg text-gray-800 mb-2 font-semibold">{title}</h3>
     <p className="text-sm text-gray-600">{description}</p>
   </div>

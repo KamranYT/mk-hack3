@@ -5,12 +5,12 @@ import Image from "next/image";
 
 
 export default async function ProductDetail({
-    params,
-  }: {
-    params: Promise<{ id: string }>
-  }) {
-    const id = (await params).id
-  
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const id = (await params).id
+
 
   // Fetch the product data from Sanity based on the id
   const query = `*[_type == "product" && _id == $id][0] {
@@ -109,13 +109,17 @@ export default async function ProductDetail({
 
           {/* Add to Cart Button */}
           <button
-            
             className={`px-6 py-3 rounded-md text-white ${isInStock
-              ? "bg-blue-600 hover:bg-blue-500"
-              : "bg-gray-400 cursor-not-allowed"
+                ? "bg-blue-600 hover:bg-blue-500"
+                : "bg-gray-400 cursor-not-allowed"
               }`}
+            disabled={!isInStock}
+            aria-disabled={!isInStock}
+            title={isInStock ? "Add this item to your cart" : "Item is out of stock"}
           >
+            {isInStock ? "Add to Cart" : "Out of Stock"}
           </button>
+
 
           {/* Additional Details */}
           <div className="mt-8">
@@ -187,6 +191,6 @@ export default async function ProductDetail({
 //     params: Promise<{slug: string}>
 // }){
 //     const slug = (await params).slug
-//     return 
+//     return
 //     <div>my</div>
 // }

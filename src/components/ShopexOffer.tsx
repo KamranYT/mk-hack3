@@ -28,7 +28,7 @@ interface OfferCardProps {
 }
 
 const OfferCard: React.FC<OfferCardProps> = ({ img, title, description }) => (
-  <div className="w-[270px] h-[320px] bg-white shadow-lg rounded-lg flex flex-col items-center p-5 text-center">
+  <div className="w-[270px] h-[270] bg-white shadow-lg rounded-lg flex flex-col items-center p-5 text-center py-14">
     <Image src={img} width={270} height={320} alt={title} className="w-16 h-16 mb-4" />
     <h3 className="text-lg text-gray-800 mb-2 font-semibold">{title}</h3>
     <p className="text-sm text-gray-600">{description}</p>

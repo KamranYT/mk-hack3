@@ -8,7 +8,7 @@ import Link from "next/link";
 const centeredPage = () => {
   return (
     <div
-      className="lg:w-[1420px] xl:h-[462px] md:w-[10px] bg-cover bg-center flex flex-col items-center justify-center relative"
+      className="max-width 2xl:w-[1420px] 2xl:h-[462px] xl:w-[1366px] bg-cover bg-center flex flex-col items-center justify-center relative"
       style={{
         backgroundImage: "url('/bg1.png')", // Replace with your background image path
       }}

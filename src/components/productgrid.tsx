@@ -29,7 +29,7 @@ export default async function ProductGrid() {
   const data: IProduct[] = await getProdctsData();
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="max-width max-w-6xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6 text-center">Featured Products</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {data.map((item) => (

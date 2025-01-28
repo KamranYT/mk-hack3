@@ -20,7 +20,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="lg:max-w-[1520px]">
       {/* Top Banner */}
       <div className="bg-[#7E33E0] text-white text-xs sm:text-sm md:text-lg flex flex-col md:flex-row md:justify-between items-center gap-2 sm:gap-4 py-2 px-3 sm:px-5">
         {/* Left Section */}
@@ -106,6 +106,9 @@ const Header: React.FC = () => {
             </li>
             <li>
               <Link href="/contact" className="hover:text-gray-700">Contact</Link>
+            </li>
+            <li>
+              <Link href="/products" className="hover:text-gray-700">Product</Link>
             </li>
           </ul>
         </nav>

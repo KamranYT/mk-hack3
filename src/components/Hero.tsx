@@ -12,7 +12,7 @@ function Hero() {
   };
 
   return (
-    <div className="hero flex flex-col xl:flex-row items-center xl: justify-between xl:pt-20 px-6 sm:px-10">
+    <div className="max-width hero flex flex-col xl:flex-row items-center xl: justify-between xl:pt-20 px-6 sm:px-10">
       {/* Text Section */}
       <div className="flex-1 text-center xl:text-left">
         <h1 className="hero__title text-2xl sm:text-4xl xl:text-5xl font-bold mb-4">

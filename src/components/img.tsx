@@ -4,7 +4,7 @@ function Under() {
   return (
     <>
         {/* Additional Image */}
-<div className="mt-6 ">
+<div className="max-width mt-6 ">
 <Image
   src="/bg1under.png" // Replace with your new image path
   alt="Additional Image"

@@ -10,24 +10,41 @@ interface Blog {
   category: string;
   date: string;
 }
-// 
-async function getBlogData(id: string): Promise<Blog | undefined> {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || ""}/blogs.json`
-  );
-  // export default async function ProductDetail({
-  //   params,
-  // }: {
-  //   params: Promise<{ id: string }>
-  // }) {
-  //   const id = (await params).id
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch blogs");
-  }
+// Static data for blogs
+const blogData: Blog[] = [
+  {
+    id: "1",
+    title: "Mauris at orci non vulputate diam tincidunt nec.",
+    date: "Aug 22, 2023",
+    category: "Self Fashion",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi repellat exercitationem vel! Velit doloribus illum ex ipsam voluptatem cupiditate, voluptate autem nesciunt quibusdam cum, exercitationem pariatur vitae non consequuntur laborum.",
+    imageUrl: "/blog1.png",
+  },
+  {
+    id: "2",
+    title: "Aenean vitae in aliquam ultrices lectus.",
+    date: "Aug 20, 2023",
+    category: "Self Fashion",
+    content:
+      "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    imageUrl: "/blog2.png",
+  },
+  {
+    id: "3",
+    title: "Sit nam congue feugiat nisl, mauris amet nisi.",
+    date: "Aug 20, 2023",
+    category: "Self Fashion",
+    content:
+      "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    imageUrl: "/blog3.png",
+  },
+];
 
-  const blogs: Blog[] = await res.json();
-  return blogs.find((blog) => blog.id === id);
+// Fetch a single blog by ID from the static data
+function getBlogData(id: string): Blog | undefined {
+  return blogData.find((blog) => blog.id === id);
 }
 
 export default async function SingleBlogPage({
@@ -35,19 +52,12 @@ export default async function SingleBlogPage({
 }: {
   params: Promise<{ id: string }>
 }) {
-  const blog = await getBlogData((await params).id);
+  const {id} = await params;
+  const blog = getBlogData(id)
 
   if (!blog) {
     notFound();
   }
-
-  // export default async function ProductDetail({
-  //   params,
-  // }: {
-  //   params: Promise<{ id: string }>
-  // }) {
-  //   const id = (await params).id
-
 
   return (
     <div>
@@ -69,7 +79,8 @@ export default async function SingleBlogPage({
           <Image
             src={blog.imageUrl}
             alt={blog.title}
-            fill
+            width={500}
+            height={300}
             className="w-full lg:w-[500px] rounded-md object-cover mb-8"
           />
           <div className="text-sm text-gray-500 mb-4">
@@ -117,21 +128,15 @@ export default async function SingleBlogPage({
           <div className="w-full">
             <h3 className="font-bold mb-4">Recent Posts</h3>
             <ul className="space-y-2">
-              {/* Replace with dynamic data */}
-              <li>
-                <Link href="/blog/1">
-                  <span className="text-gray-600 hover:text-blue-500 cursor-pointer">
-                    Recent Blog 1
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog/2">
-                  <span className="text-gray-600 hover:text-blue-500 cursor-pointer">
-                    Recent Blog 2
-                  </span>
-                </Link>
-              </li>
+              {blogData.slice(0, Math.min(blogData.length, 3)).map((recentBlog) => (
+                <li key={recentBlog.id}>
+                  <Link href={`/blog/${recentBlog.id}`}>
+                    <span className="text-gray-600 hover:text-blue-500 cursor-pointer">
+                      {recentBlog.title}
+                    </span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </aside>

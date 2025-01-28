@@ -25,8 +25,8 @@ const LatestBlog = () => {
   ];
 
   return (
-    <section className=" py-10 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-10 px-6">
+      <div className="max-width max-w-7xl mx-auto">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
           Latest Blog
         </h2>
