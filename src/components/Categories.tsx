@@ -75,7 +75,8 @@ import { Image as IImage } from "sanity";
 import { urlForImage } from "@/sanity/lib/image";
 
 export const getProductsData = async () => {
-  const res = await client.fetch(`*[_type=="product" && _id in ["gbTY3B2TxF1zfilLOh7ZwD", "gbTY3B2TxF1zfilLOh5rug", "BsnR1UsX7CpO8CtReEvVng", "BsnR1UsX7CpO8CtReEvGF2"]]{
+  const res =
+    await client.fetch(`*[_type=="product" && _id in ["gbTY3B2TxF1zfilLOh7ZwD", "gbTY3B2TxF1zfilLOh5rug", "BsnR1UsX7CpO8CtReEvVng", "BsnR1UsX7CpO8CtReEvGF2"]]{
     name,
     description,
     price,
@@ -96,46 +97,46 @@ interface IProduct {
 }
 
 // export default async function LatestProduct() {
-  
-export default async function TopCategories() {
-    const data: IProduct[] = await getProductsData();
 
-      return (
-        <section className="py-16 px-4 ">
-          {/* Heading */}
-          <h1 className="text-4xl font-bold text-center text-[#151875] mb-10">
-            Top Categories
-          </h1>
-    
-          {/* Grid Section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
-            {data.map((item) => (
-              <div
-                key={item._id}
-                className="flex flex-col items-center justify-center"
-              >
-                {/* Circular Box with Shadow */}
-                <div className="w-[269px] h-[269px] bg-[#F6F7FB] rounded-full flex items-center justify-center relative shadow-lg">
-                  <Image
-                    src={urlForImage(item.image).url()}
-                    alt={item.description}
-                    width={150}
-                    height={150}
-                    className="object-contain"
-                  />
-                </div>
-                {/* Title and Price */}
-                <h2 className="text-lg font-semibold text-[#151875] mt-4">
-                  {item.name}
-                </h2>
-                <p className="text-sm text-[#151875] mt-1">${item.price}</p>
-              </div>
-            ))}
+export default async function TopCategories() {
+  const data: IProduct[] = await getProductsData();
+
+  return (
+    <section className="py-16 px-4 ">
+      {/* Heading */}
+      <h1 className="text-4xl font-bold text-center text-[#151875] mb-10">
+        Top Categories
+      </h1>
+
+      {/* Grid Section */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
+        {data.map((item) => (
+          <div
+            key={item._id}
+            className="flex flex-col items-center justify-center"
+          >
+            {/* Circular Box with Shadow */}
+            <div className="w-[269px] h-[269px] bg-[#F6F7FB] rounded-full flex items-center justify-center relative shadow-lg">
+              <Image
+                src={urlForImage(item.image).url()}
+                alt={item.description}
+                width={150}
+                height={150}
+                className="object-contain"
+              />
+            </div>
+            {/* Title and Price */}
+            <h2 className="text-lg font-semibold text-[#151875] mt-4">
+              {item.name}
+            </h2>
+            <p className="text-sm text-[#151875] mt-1">${item.price}</p>
           </div>
-        </section>
-      );
-    };
-    
+        ))}
+      </div>
+    </section>
+  );
+}
+
 //   return (
 //     <div className="max-w-6xl mx-auto px-4 py-8">
 //       <h1 className="text-2xl font-bold mb-6 text-center">Latest Products</h1>

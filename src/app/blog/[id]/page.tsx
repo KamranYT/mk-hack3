@@ -50,10 +50,10 @@ function getBlogData(id: string): Blog | undefined {
 export default async function SingleBlogPage({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }) {
-  const {id} = await params;
-  const blog = getBlogData(id)
+  const { id } = await params;
+  const blog = getBlogData(id);
 
   if (!blog) {
     notFound();
@@ -67,8 +67,7 @@ export default async function SingleBlogPage({
           Single Blog
         </h1>
         <p className="text-sm mt-2 text-black">
-          Home . Pages{" "}
-          <span className="text-[#FB2E86]">. Single Blog</span>
+          Home . Pages <span className="text-[#FB2E86]">. Single Blog</span>
         </p>
       </div>
 
@@ -128,15 +127,17 @@ export default async function SingleBlogPage({
           <div className="w-full">
             <h3 className="font-bold mb-4">Recent Posts</h3>
             <ul className="space-y-2">
-              {blogData.slice(0, Math.min(blogData.length, 3)).map((recentBlog) => (
-                <li key={recentBlog.id}>
-                  <Link href={`/blog/${recentBlog.id}`}>
-                    <span className="text-gray-600 hover:text-blue-500 cursor-pointer">
-                      {recentBlog.title}
-                    </span>
-                  </Link>
-                </li>
-              ))}
+              {blogData
+                .slice(0, Math.min(blogData.length, 3))
+                .map((recentBlog) => (
+                  <li key={recentBlog.id}>
+                    <Link href={`/blog/${recentBlog.id}`}>
+                      <span className="text-gray-600 hover:text-blue-500 cursor-pointer">
+                        {recentBlog.title}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
         </aside>

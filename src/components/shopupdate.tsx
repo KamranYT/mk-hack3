@@ -4,7 +4,6 @@
 import React from "react";
 import Link from "next/link";
 
-
 const centeredPage = () => {
   return (
     <div
@@ -16,9 +15,8 @@ const centeredPage = () => {
       {/* Text Content */}
       <div className="text-center bg-opacity-50 p-10 rounded-lg">
         <h1 className="text-5xl font-bold text-[35px] text-[#151875] mb-4">
-          Get Latest Update By <hr />Subscribe
-          
-          Our Newsletter
+          Get Latest Update By <hr />
+          Subscribe Our Newsletter
         </h1>
 
         <Link href="/shop">
@@ -27,11 +25,8 @@ const centeredPage = () => {
           </button>
         </Link>
       </div>
-
-      
     </div>
   );
 };
 
 export default centeredPage;
-

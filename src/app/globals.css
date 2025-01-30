@@ -4,63 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
-}
+} */
 
-.max-width {
-  @apply max-w-[1920px] justify-center items-center;
-}
-
-@screen sm {
-  .max-width {
-    @apply max-w-[640px];
-  }
-}
-
-@screen md {
-  .max-width {
-    @apply max-w-[768px];
-  }
-}
-
-@screen lg {
-  .max-width {
-    @apply max-w-[1024px];
-  }
-}
-
-@screen xl {
-  .max-width {
-    @apply max-w-[1280px];
-  }
-}
-
-@screen 2xl {
-  .max-width {
-    @apply max-w-[1536px];
-  }
-}
-
-
-.padding-x {
-  @apply sm:px-16 px-6;
-}
-
-.padding-y {
-  @apply py-4;
-}
-
-.flex-center {
-  @apply flex items-center justify-center;
-}
-
-.flex-between {
-  @apply flex justify-between items-center;
-}
 
 
 /* START: Footer styles */

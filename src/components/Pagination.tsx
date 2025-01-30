@@ -6,7 +6,11 @@ interface PaginationProps {
   onPageChange: (pageNumber: number) => void;
 }
 
-const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
+const Pagination = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}: PaginationProps) => {
   return (
     <div className="pagination flex text-sm sm:text-base justify-center items-center mt-32 gap-2">
       <button

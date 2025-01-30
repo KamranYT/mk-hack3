@@ -1,11 +1,17 @@
 "use client";
-import Cookies from 'js-cookie';
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { toast } from 'react-toastify';
+import Cookies from "js-cookie";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { toast } from "react-toastify";
 
 interface CartItem {
   color: string;
-  slug? : string ;
+  slug?: string;
   id: string;
   title: string;
   price: number;
@@ -29,63 +35,58 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Initialize cart from cookies after component is hydrated
   useEffect(() => {
-    const storedCart = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')!) : [];
+    const storedCart = Cookies.get("cart")
+      ? JSON.parse(Cookies.get("cart")!)
+      : [];
     setCart(storedCart);
   }, []);
 
-
-
-
   // Add to Cart
-const addToCart = (product: CartItem) => {
-  console.log("Adding to cart:", product.id);
+  const addToCart = (product: CartItem) => {
+    console.log("Adding to cart:", product.id);
 
-  let toastMessage = ""; // Initialize toast message
-  let toastType = ""; // Initialize toast type (success or info)
+    let toastMessage = ""; // Initialize toast message
+    let toastType = ""; // Initialize toast type (success or info)
 
-  setCart((prev) => {
-    const existing = prev.find((item) => item.id === product.id);
-    const updatedCart = existing
-      ? prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      : [...prev, { ...product, quantity: 1 }];
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
+      const updatedCart = existing
+        ? prev.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
+        : [...prev, { ...product, quantity: 1 }];
 
-    Cookies.set("cart", JSON.stringify(updatedCart), { expires: 7 });
+      Cookies.set("cart", JSON.stringify(updatedCart), { expires: 7 });
 
-    // Determine the toast message and type
-    if (existing) {
-      toastMessage = `Quantity updated for ${product.title}`;
-      toastType = "info";
-    } else {
-      toastMessage = `${product.title} has been added to the cart!`;
-      toastType = "success";
+      // Determine the toast message and type
+      if (existing) {
+        toastMessage = `Quantity updated for ${product.title}`;
+        toastType = "info";
+      } else {
+        toastMessage = `${product.title} has been added to the cart!`;
+        toastType = "success";
+      }
+
+      return updatedCart;
+    });
+
+    // Call toast once outside setCart
+    if (toastType === "success") {
+      toast.success(toastMessage, {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    } else if (toastType === "info") {
+      toast.info(toastMessage, {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     }
 
-    return updatedCart;
-  });
-
-  // Call toast once outside setCart
-  if (toastType === "success") {
-    toast.success(toastMessage, {
-      position: "bottom-right",
-      autoClose: 3000,
-    });
-  } else if (toastType === "info") {
-    toast.info(toastMessage, {
-      position: "bottom-right",
-      autoClose: 3000,
-    });
-  }
-
-  console.log("Item processed");
-};
-
-  
-  
-  
+    console.log("Item processed");
+  };
 
   // Update cart quantity
   const updateQuantity = (id: string, quantity: number) => {
@@ -93,7 +94,7 @@ const addToCart = (product: CartItem) => {
       const updatedCart = prev.map((item) =>
         item.id === id ? { ...item, quantity: Math.max(quantity, 1) } : item
       );
-      Cookies.set('cart', JSON.stringify(updatedCart), { expires: 7 });
+      Cookies.set("cart", JSON.stringify(updatedCart), { expires: 7 });
       return updatedCart;
     });
   };
@@ -104,28 +105,36 @@ const addToCart = (product: CartItem) => {
     if (itemToRemove) {
       toast.error(`${itemToRemove.title} removed from cart!`, {
         position: "bottom-right", // Toast position
-        autoClose: 3000,         // Auto-close after 3 seconds
+        autoClose: 3000, // Auto-close after 3 seconds
       });
     }
-  
+
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart); // Update cart state
     Cookies.set("cart", JSON.stringify(updatedCart), { expires: 7 }); // Update cookies
     console.log("Removing from cart:", itemToRemove?.title);
   };
-  
 
   // Clear cart
   const clearCart = () => {
-    setCart([]);  // Clear the state
-    Cookies.remove('cart');  // Remove cart from cookies
+    setCart([]); // Clear the state
+    Cookies.remove("cart"); // Remove cart from cookies
   };
 
   // Calculate total items in the cart
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, updateQuantity, removeFromCart, clearCart, totalItems }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        updateQuantity,
+        removeFromCart,
+        clearCart,
+        totalItems,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

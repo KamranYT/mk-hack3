@@ -3,27 +3,15 @@ import { urlForImage } from "@/sanity/lib/image";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
-
 export default async function ProductDetail({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }) {
-  const id = (await params).id
-
+  const id = (await params).id;
 
   // Fetch the product data from Sanity based on the id
-  const query = `*[_type == "product" && _id == $id][0] {
-    name,
-    description,
-    price,
-    originalPrice,
-    _id,
-    image,
-    stockLevel,
-    categories,
-    tags
-  }`;
+  const query = `*[_type == "product" && _id == $id][0]`;
 
   const product = await client.fetch(query, { id });
 
@@ -34,15 +22,14 @@ export default async function ProductDetail({
   const isInStock = product.stockLevel > 0;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
+    <div className="">
       {/* Breadcrumb */}
       <nav className="bg-[#F6F5FF] py-8 text-start px-4 sm:px-8 lg:px-64">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#101750]">
           Product Details
         </h1>
         <p className="text-sm mt-2 text-black">
-          Home . Pages{" "}
-          <span className="text-[#FB2E86]">. Product Details</span>
+          Home . Pages <span className="text-[#FB2E86]">. Product Details</span>
         </p>
       </nav>
 
@@ -67,7 +54,7 @@ export default async function ProductDetail({
             {[product.image, product.image, product.image].map((img, index) => (
               <div
                 key={index}
-                className="relative w-full h-20 border rounded-md"
+                className="relative w-full h-20 border rounded-md overflow-hidden"
               >
                 <Image
                   src={urlForImage(img).url()}
@@ -96,31 +83,23 @@ export default async function ProductDetail({
               </p>
             )}
             <span
-              className={`px-3 py-1 rounded text-sm ${isInStock ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-                }`}
+              className={`px-3 py-1 rounded text-sm ${
+                isInStock
+                  ? "bg-green-100 text-green-700"
+                  : "bg-red-100 text-red-700"
+              }`}
             >
               {isInStock ? "In Stock" : "Out of Stock"}
             </span>
           </div>
 
-
           {/* Description */}
           <p className="text-gray-700 mb-6">{product.description}</p>
 
           {/* Add to Cart Button */}
-          <button
-            className={`px-6 py-3 rounded-md text-white ${isInStock
-                ? "bg-blue-600 hover:bg-blue-500"
-                : "bg-gray-400 cursor-not-allowed"
-              }`}
-            disabled={!isInStock}
-            aria-disabled={!isInStock}
-            title={isInStock ? "Add this item to your cart" : "Item is out of stock"}
-          >
-            {isInStock ? "Add to Cart" : "Out of Stock"}
+          <button className="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg hover:scale-110 transition-transform duration-200 ease-in-out">
+            Add to cart
           </button>
-
-
           {/* Additional Details */}
           <div className="mt-8">
             <p className="mb-2">
@@ -162,28 +141,6 @@ export default async function ProductDetail({
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // export default async function ProductDetails({
 //     params,

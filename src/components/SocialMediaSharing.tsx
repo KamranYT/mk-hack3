@@ -2,7 +2,12 @@
 
 import { FC } from "react";
 import Head from "next/head";
-import { FaWhatsapp, FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import {
+  FaWhatsapp,
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+} from "react-icons/fa";
 import { FaLink } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
@@ -61,7 +66,10 @@ const SocialSharing: FC<SocialSharingProps> = ({ product }) => {
       <Head>
         <title>{product.title} - Comforty</title>
         <meta property="og:title" content={product.title} />
-        <meta property="og:description" content={`Buy ${product.title} for just $${product.price}. Check it out on Comforty!`} />
+        <meta
+          property="og:description"
+          content={`Buy ${product.title} for just $${product.price}. Check it out on Comforty!`}
+        />
         <meta property="og:image" content={product.imageUrl} />
         <meta property="og:image:alt" content={product.title} />
         <meta property="og:url" content={productUrl} />
@@ -70,7 +78,10 @@ const SocialSharing: FC<SocialSharingProps> = ({ product }) => {
         {/* Twitter Cards */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={product.title} />
-        <meta name="twitter:description" content={`Buy ${product.title} for just $${product.price}.`} />
+        <meta
+          name="twitter:description"
+          content={`Buy ${product.title} for just $${product.price}.`}
+        />
         <meta name="twitter:image" content={product.imageUrl} />
         <meta name="twitter:url" content={productUrl} />
       </Head>

@@ -3,15 +3,14 @@ import Image from "next/image";
 
 const ContactPage: React.FC = () => {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen max-w-screen-2xl">
       {/* Banner Section */}
       <div className="bg-[#F6F5FF] py-8 text-start px-4 sm:px-8 lg:px-64">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#101750]">
           Contact Us
         </h1>
         <p className="text-sm mt-2 text-black">
-          Home . Pages{" "}
-          <span className="text-[#FB2E86]">. Contact Us</span>
+          Home . Pages <span className="text-[#FB2E86]">. Contact Us</span>
         </p>
       </div>
 
@@ -28,8 +27,8 @@ const ContactPage: React.FC = () => {
               </h2>
               <p className="text-gray-600">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis
-                neque ultrices mattis aliquam, malesuada diam est. Malesuada
-                sem tristique amet erat vitae eget dolor lobortis.
+                neque ultrices mattis aliquam, malesuada diam est. Malesuada sem
+                tristique amet erat vitae eget dolor lobortis.
               </p>
             </div>
 
@@ -46,7 +45,8 @@ const ContactPage: React.FC = () => {
                     <span className="font-bold">Tel:</span> +1 234-567-890
                   </p>
                   <p>
-                    <span className="font-bold">Email:</span> support@shopsite.com
+                    <span className="font-bold">Email:</span>{" "}
+                    support@shopsite.com
                   </p>
                   <p>
                     <span className="font-bold">Address:</span> 20 Margaret St,
@@ -54,8 +54,6 @@ const ContactPage: React.FC = () => {
                   </p>
                   <p>Free standard shipping on all orders.</p>
                 </div>
-
-                
               </div>
             </div>
           </div>

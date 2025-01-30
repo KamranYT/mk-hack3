@@ -5,11 +5,11 @@ import { FaFacebook } from "react-icons/fa";
 import { footerLinks } from "@/constants";
 
 const Footer = () => (
-  <footer className='max-width flex flex-col text-black-100  mt-5 border-t border-gray-100 bg-[#EEEFFB]'>
-    <div className='flex max-md:flex-col flex-wrap justify-between gap-5 sm:px-16 px-6 py-10'>
-      <div className='flex flex-col justify-start items-start gap-6'>
+  <footer className="flex flex-col bg-[#EEEFFB] ">
+    <div className="flex max-md:flex-col flex-wrap justify-between gap-5 sm:px-16 px-6 py-10">
+      <div className="flex flex-col justify-start items-start gap-6">
         <h1 className="text-4xl font-bold text-[#000000]">Hekto</h1>
-        
+
         {/* Search Bar */}
         <div className="relative flex max-w-md md:max-w-lg lg:max-xl">
           <input
@@ -24,7 +24,7 @@ const Footer = () => (
             Sign Up
           </button>
         </div>
-        <p className='text-base text-[#8A8FB9]'>
+        <p className="text-base text-[#8A8FB9]">
           <span className="text-2xl">Contack Info</span> <br />
           17 Princess Road, London, Greater London NW18JR, UK
         </p>
@@ -50,25 +50,34 @@ const Footer = () => (
       </div>
     </div>
 
-    <div className='flex justify-center xl:gap-[600px] items-center flex-wrap mt-10 border-t border-gray-100 sm:px-16 px-6 py-10'>
-    <p className='text-base text-gray-700'>
-           &copy;Webecy - All right reserved
-        </p>
+    <div className="flex justify-center xl:gap-[600px] items-center flex-wrap mt-10 border-t border-gray-100 sm:px-16 px-6 py-10">
+      <p className="text-base text-gray-700">
+        &copy;Webecy - All right reserved
+      </p>
 
-      
       <div className="flex xl:gap-4 gap-6">
-      <a href="#" aria-label="LinkedIn" className=" hover:text-blue-800 transition">
-                <FaFacebook size={24} />
-              </a>
-              <a href="#" aria-label="Instagram" className=" hover:text-pink-600 transition">
-                <FaInstagram size={24} />
-              </a>
-              <a href="#" aria-label="Twitter" className=" hover:text-blue-600 transition">
-              <CiTwitter size={24} />
-              </a>
-              
-            </div>
-      
+        <a
+          href="#"
+          aria-label="LinkedIn"
+          className=" hover:text-blue-800 transition"
+        >
+          <FaFacebook size={24} />
+        </a>
+        <a
+          href="#"
+          aria-label="Instagram"
+          className=" hover:text-pink-600 transition"
+        >
+          <FaInstagram size={24} />
+        </a>
+        <a
+          href="#"
+          aria-label="Twitter"
+          className=" hover:text-blue-600 transition"
+        >
+          <CiTwitter size={24} />
+        </a>
+      </div>
     </div>
   </footer>
 );

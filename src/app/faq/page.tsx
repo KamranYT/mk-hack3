@@ -10,8 +10,7 @@ const ContactPage: React.FC = () => {
           FAQ
         </h1>
         <p className="text-sm mt-2 text-black">
-          Home . Pages{" "}
-          <span className="text-[#FB2E86]">. Faq</span>
+          Home . Pages <span className="text-[#FB2E86]">. Faq</span>
         </p>
       </div>
 
@@ -29,38 +28,48 @@ const ContactPage: React.FC = () => {
               <div className="space-y-6">
                 {/* Question 1 */}
                 <div>
-                  <h3 className="font-semibold text-[#1D3178]">What materials are used in your furniture?</h3>
+                  <h3 className="font-semibold text-[#1D3178]">
+                    What materials are used in your furniture?
+                  </h3>
                   <p className="text-[#A1ABCC]">
-                    Our furniture is crafted from high-quality materials such as solid wood, premium upholstery, and durable metals for lasting comfort and style.
+                    Our furniture is crafted from high-quality materials such as
+                    solid wood, premium upholstery, and durable metals for
+                    lasting comfort and style.
                   </p>
                 </div>
 
                 {/* Question 2 */}
                 <div>
-                  <h3 className="font-semibold text-[#1D3178]">Do you offer customization options for sofas and chairs?
+                  <h3 className="font-semibold text-[#1D3178]">
+                    Do you offer customization options for sofas and chairs?
                   </h3>
                   <p className="text-[#A1ABCC]">
-                    Yes, we offer a range of customization options including fabric, color, and size to fit your specific needs and preferences.
-
-
+                    Yes, we offer a range of customization options including
+                    fabric, color, and size to fit your specific needs and
+                    preferences.
                   </p>
                 </div>
 
                 {/* Question 3 */}
                 <div>
-                  <h3 className="font-semibold text-[#1D3178]">What is the estimated delivery time for orders?
+                  <h3 className="font-semibold text-[#1D3178]">
+                    What is the estimated delivery time for orders?
                   </h3>
                   <p className="text-[#A1ABCC]">
-                    Delivery typically takes 2-4 weeks, depending on your location and the availability of the items.
+                    Delivery typically takes 2-4 weeks, depending on your
+                    location and the availability of the items.
                   </p>
                 </div>
 
                 {/* Question 4 */}
                 <div>
-                  <h3 className="font-semibold text-[#1D3178]">How do I care for and maintain my furniture?
+                  <h3 className="font-semibold text-[#1D3178]">
+                    How do I care for and maintain my furniture?
                   </h3>
                   <p className="text-[#A1ABCC]">
-                    Regularly dust and clean your furniture with a soft cloth, and follow specific care instructions provided with your purchase for optimal maintenance.
+                    Regularly dust and clean your furniture with a soft cloth,
+                    and follow specific care instructions provided with your
+                    purchase for optimal maintenance.
                   </p>
                 </div>
               </div>
@@ -97,7 +106,6 @@ const ContactPage: React.FC = () => {
                 Send Mail
               </button>
             </form>
-
           </div>
         </div>
         <Under />

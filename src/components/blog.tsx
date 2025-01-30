@@ -8,7 +8,6 @@ const LatestBlog = () => {
       code: "More off this less semelande lied much",
       description: "over tighty hell circa horse taped mighty",
       image: "/blog1.png", // Replace with actual image paths
-      
     },
     {
       title: "Top essentional Trends in 2021",
@@ -38,9 +37,7 @@ const LatestBlog = () => {
               className="relative border rounded-xl p-4 bg-white shadow-md hover:shadow-lg transition duration-300"
               style={{ height: "361px" }} // Optional height for consistent card size
             >
-              <div 
-              className="w-full h-40 flex items-center justify-center overflow-hidden rounded-lg">
-                
+              <div className="w-full h-40 flex items-center justify-center overflow-hidden rounded-lg">
                 <Image
                   src={blog.image}
                   alt={blog.title}
@@ -54,11 +51,11 @@ const LatestBlog = () => {
                   {blog.title}
                 </h3>
                 <p className="text-sm text-gray-500">{blog.code}</p>
-                <p className="text-sm text-gray-600 mt-2">
-                  {blog.description}
-                </p>
+                <p className="text-sm text-gray-600 mt-2">{blog.description}</p>
               </div>
-              <button className="underline xl:hover:text-pink-600 xl:mt-10" >ReadMore</button>
+              <button className="underline xl:hover:text-pink-600 xl:mt-10">
+                ReadMore
+              </button>
             </div>
           ))}
         </div>
