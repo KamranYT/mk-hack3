@@ -5,6 +5,8 @@ import Image from "next/image";
 import { getCartItems } from "@/app/actions/actions";
 import { Product } from "@/types/product";
 import { urlForImage } from "@/sanity/lib/image";
+import { client } from "@/lib/sanityClient";
+import Swal from "sweetalert2";
 
 export default function Checkout() {
   const [cartItems, setCartItems] = useState<Product[]>([]);
@@ -64,12 +66,52 @@ export default function Checkout() {
     return Object.values(errors).every((error) => !error);
   };
 
-  const handlePlaceOrder = () => {
-    if (validateForm()) {
+  const handlePlaceOrder = async () => {
+    Swal.fire({
+      title: "Order Confirmation",
+      text: "Are you sure you want to place the order?",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (validateForm()) {
+          localStorage.removeItem("appliedDiscount");
+          Swal.fire(
+            "Order Placed!",
+            "Your order has been placed successfully.",
+            "success"
+          );
+        } else {
+          Swal.fire("Error", "Please fill in all the fields.", "error");
+        }
+      }
+    });
+
+    const orderData = {
+      _type: "order",
+      firstName: formValues.firstName,
+      lastName: formValues.lastName,
+      address: formValues.address,
+      city: formValues.city,
+      zipCode: formValues.zipCode,
+      phone: formValues.phone,
+      email: formValues.email,
+      cartItems: cartItems.map((item) => ({
+        _type: "reference",
+        _ref: item._id,
+      })),
+      total: total,
+      discount: discount,
+      orderDate: new Date().toISOString(),
+    };
+
+    try {
+      await client.create(orderData);
       localStorage.removeItem("appliedDiscount");
-      alert("Order placed successfully!");
-    } else {
-      alert("Please fill in all the fields.");
+    } catch (error) {
+      console.error("Failed to create order", error);
     }
   };
 
