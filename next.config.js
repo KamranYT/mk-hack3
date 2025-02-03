@@ -15,8 +15,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["cdn.sanity.io"]
+    domains: ["cdn.sanity.io"],
+  },
+  webpack: (config) => {
+    config.cache = false; // Disable Webpack cache
+    return config;
   },
 };
- 
-module.exports = nextConfig
+
+module.exports = nextConfig;

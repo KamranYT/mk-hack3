@@ -1,7 +1,35 @@
+"use client";
 import React from "react";
 import Image from "next/image";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+// Zod schema for form validation
+const contactSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address").min(1, "Email is required"),
+  subject: z.string().min(1, "Subject is required"),
+  message: z.string().min(1, "Message is required"),
+});
+
+type FormData = z.infer<typeof contactSchema>;
 
 const ContactPage: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormData>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+    reset(); // reset the form after submission
+  };
+
   return (
     <div className="bg-white min-h-screen max-w-screen-2xl">
       {/* Banner Section */}
@@ -63,31 +91,55 @@ const ContactPage: React.FC = () => {
             <h2 className="text-xl sm:text-2xl font-semibold mb-6">
               Get In Touch
             </h2>
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <input
+                {...register("name")}
                 type="text"
                 placeholder="Your Name"
-                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                required
+                className={`w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                  errors.name ? "border-red-500" : ""
+                }`}
               />
+              {errors.name && (
+                <p className="text-red-500 text-sm">{errors.name.message}</p>
+              )}
+
               <input
+                {...register("email")}
                 type="email"
                 placeholder="Your Email"
-                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                required
+                className={`w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                  errors.email ? "border-red-500" : ""
+                }`}
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
+
               <input
+                {...register("subject")}
                 type="text"
                 placeholder="Subject"
-                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                required
+                className={`w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                  errors.subject ? "border-red-500" : ""
+                }`}
               />
+              {errors.subject && (
+                <p className="text-red-500 text-sm">{errors.subject.message}</p>
+              )}
+
               <textarea
+                {...register("message")}
                 placeholder="Type Your Message"
                 rows={5}
-                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                required
+                className={`w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                  errors.message ? "border-red-500" : ""
+                }`}
               />
+              {errors.message && (
+                <p className="text-red-500 text-sm">{errors.message.message}</p>
+              )}
+
               <button
                 type="submit"
                 className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition"
@@ -99,9 +151,9 @@ const ContactPage: React.FC = () => {
             {/* Decorative Image */}
             <div className="absolute bottom-4 right-4 w-32 sm:w-40 lg:w-56 opacity-80">
               <Image
-                src="/contact.png"
-                width={32}
-                height={32}
+                src="/contact.png" // Path relative to the 'public' folder
+                width={128} // Provide width in pixels
+                height={128} // Provide height in pixels
                 alt="Contact Illustration"
                 className="w-full"
               />

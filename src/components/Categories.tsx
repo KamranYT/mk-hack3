@@ -69,14 +69,84 @@
 
 // export default TopCategories;
 
+// import Image from "next/image";
+// import { client } from "@/sanity/lib/client";
+// import { Image as IImage } from "sanity";
+// import { urlForImage } from "@/sanity/lib/image";
+
+// export const getProductsData = async () => {
+//   const res =
+//     await client.fetch(`*[_type=="product" && _id in ["gbTY3B2TxF1zfilLOh7ZwD", "gbTY3B2TxF1zfilLOh5rug", "BsnR1UsX7CpO8CtReEvVng", "BsnR1UsX7CpO8CtReEvGF2"]]{
+//     name,
+//     description,
+//     price,
+//     _id,
+//     image,
+//     stockLevel
+//   }`);
+//   return res;
+// };
+
+// interface IProduct {
+//   name: string;
+//   description: string;
+//   _id: string;
+//   price: number;
+//   discountPercentage: number;
+//   image: IImage;
+// }
+
+// // export default async function LatestProduct() {
+
+// export default async function TopCategories() {
+//   const data: IProduct[] = await getProductsData();
+
+//   return (
+//     <section className="py-16 px-4 ">
+//       {/* Heading */}
+//       <h1 className="text-4xl font-bold text-center text-[#151875] mb-10">
+//         Top Categories
+//       </h1>
+
+//       {/* Grid Section */}
+//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
+//         {data.map((item) => (
+//           <div
+//             key={item._id}
+//             className="flex flex-col items-center justify-center"
+//           >
+//             {/* Circular Box with Shadow */}
+//             <div className="w-[269px] h-[269px] bg-[#F6F7FB] rounded-full flex items-center justify-center relative shadow-lg">
+//               <Image
+//                 src={urlForImage(item.image).url()}
+//                 alt={item.description}
+//                 width={150}
+//                 height={150}
+//                 className="object-contain"
+//               />
+//             </div>
+//             {/* Title and Price */}
+//             <h2 className="text-lg font-semibold text-[#151875] mt-4">
+//               {item.name}
+//             </h2>
+//             <p className="text-sm text-[#151875] mt-1">${item.price}</p>
+//           </div>
+//         ))}
+//       </div>
+//     </section>
+//   );
+// }
+
+"use client";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { Image as IImage } from "sanity";
 import { urlForImage } from "@/sanity/lib/image";
+import { useState } from "react";
+import Link from "next/link";
 
 export const getProductsData = async () => {
-  const res =
-    await client.fetch(`*[_type=="product" && _id in ["gbTY3B2TxF1zfilLOh7ZwD", "gbTY3B2TxF1zfilLOh5rug", "BsnR1UsX7CpO8CtReEvVng", "BsnR1UsX7CpO8CtReEvGF2"]]{
+  const res = await client.fetch(`*[_type=="product" && _id in ["gbTY3B2TxF1zfilLOh7ZwD", "gbTY3B2TxF1zfilLOh5rug", "BsnR1UsX7CpO8CtReEvVng", "BsnR1UsX7CpO8CtReEvGF2"]]{
     name,
     description,
     price,
@@ -92,14 +162,24 @@ interface IProduct {
   description: string;
   _id: string;
   price: number;
-  discountPercentage: number;
   image: IImage;
 }
 
-// export default async function LatestProduct() {
+export default function TopCategories() {
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+  const [data, setData] = useState<IProduct[]>([]);
 
-export default async function TopCategories() {
-  const data: IProduct[] = await getProductsData();
+  useState(() => {
+    // Fetch Data on Mount
+    getProductsData().then((res) => setData(res));
+  },);
+
+  const handleProductClick = (productId: string) => {
+    setSelectedProductId(productId);
+  };
+  const closeModal = () => {
+    setSelectedProductId(null);
+  }
 
   return (
     <section className="py-16 px-4 ">
@@ -113,18 +193,34 @@ export default async function TopCategories() {
         {data.map((item) => (
           <div
             key={item._id}
-            className="flex flex-col items-center justify-center"
+            className="flex flex-col items-center justify-center cursor-pointer"
+            onClick={() => handleProductClick(item._id)}
           >
             {/* Circular Box with Shadow */}
-            <div className="w-[269px] h-[269px] bg-[#F6F7FB] rounded-full flex items-center justify-center relative shadow-lg">
+            
+            <div
+              className={`w-[269px] h-[269px] bg-[#F6F7FB] rounded-full flex items-center justify-center relative shadow-lg transition-all duration-300 ${
+                selectedProductId === item._id ? "scale-110 shadow-2xl" : ""
+              }`}
+            >
               <Image
                 src={urlForImage(item.image).url()}
                 alt={item.description}
                 width={150}
                 height={150}
-                className="object-contain"
+                className="object-contain transition-all duration-300"
               />
+              {selectedProductId === item._id && (
+                
+                <button
+                onClick={closeModal}
+                className="absolute bottom-4 bg-green-500 text-white px-4 py-1 rounded-md">
+                  <Link href={`/product/${item._id}`} passHref>View Detail</Link>
+                </button>
+                
+              )}
             </div>
+            
             {/* Title and Price */}
             <h2 className="text-lg font-semibold text-[#151875] mt-4">
               {item.name}
@@ -136,39 +232,3 @@ export default async function TopCategories() {
     </section>
   );
 }
-
-//   return (
-//     <div className="max-w-6xl mx-auto px-4 py-8">
-//       <h1 className="text-2xl font-bold mb-6 text-center">Latest Products</h1>
-//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-//         {data.map((item) => {
-//           const discountedPrice = item.price - (item.price * item.discountPercentage) / 100;
-
-//           return (
-//             <div
-//               key={item._id}
-//               className="border rounded-lg shadow-md p-4 hover:shadow-lg transition duration-200"
-//             >
-//               {item.image && (
-//                 <div className="w-full h-60 relative">
-//                   <Image
-//                     src={urlForImage(item.image).url()}
-//                     alt={item.name}
-//                     layout="fill"
-//                     objectFit="cover"
-//                     className="rounded-md"
-//                   />
-//                 </div>
-//               )}
-//               <h2 className="text-lg font-semibold mt-4">{item.name}</h2>
-//               <div className="flex items-center mt-2">
-//                 <span className="text-[#151875] font-bold mr-2">${discountedPrice.toFixed(2)}</span>
-//                 <span className="text-[#FB2448] line-through">${item.price}</span>
-//               </div>
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// }
