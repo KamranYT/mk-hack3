@@ -13,6 +13,7 @@ import { addToCart } from "@/app/actions/actions";
 const SHOP = () => {
   const [product, setProduct] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null); // State to store error message
 
   useEffect(() => {
     async function fetchProduct() {
@@ -21,6 +22,7 @@ const SHOP = () => {
         setProduct(fetchedProduct);
       } catch (error) {
         console.error("Error fetching products:", error);
+        setError("Failed to load products. Please try again later."); // Set error message
       } finally {
         setLoading(false); // Stop loading after fetching data
       }
@@ -42,6 +44,12 @@ const SHOP = () => {
 
   return (
     <div className="max-width max-w-6xl mx-auto px-4 py-8">
+      {error && (
+        <div className="bg-red-500 text-white text-center p-4 rounded-md mb-8">
+          {error} {/* Display error message if there's an error */}
+        </div>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
         {loading
           ? // Skeleton Loader
@@ -56,46 +64,51 @@ const SHOP = () => {
               </div>
             ))
           : // Product Cards
-            product.map((item) => {
-              const discountedPrice =
-                item.price - (item.price * item.discountPercentage) / 100;
-              return (
-                <div
-                  key={item._id}
-                  className="border rounded-lg shadow-md p-4 hover:shadow-lg transition duration-200"
-                >
-                  <Link href={`/product/${item._id}`} passHref>
-                    {item.image && (
-                      <div className="w-full h-60 relative">
-                        <Image
-                          src={urlForImage(item.image).url()}
-                          alt={item.name}
-                          width={300}
-                          height={200}
-                          objectFit="cover"
-                          className="rounded-md px-8 py-2  "
-                        />
+            product.length > 0
+            ? product.map((item) => {
+                const discountedPrice =
+                  item.price - (item.price * item.discountPercentage) / 100;
+                return (
+                  <div
+                    key={item._id}
+                    className="border rounded-lg shadow-md p-4 hover:shadow-lg transition duration-200"
+                  >
+                    <Link href={`/product/${item._id}`} passHref>
+                      {item.image && (
+                        <div className="w-full h-60 relative">
+                          <Image
+                            src={urlForImage(item.image).url()}
+                            alt={item.name}
+                            width={300}
+                            height={200}
+                            objectFit="cover"
+                            className="rounded-md px-8 py-2"
+                          />
+                        </div>
+                      )}
+                      <h2 className="text-lg font-semibold mt-4">{item.name}</h2>
+                      <div className="flex items-center mt-2">
+                        <span className="text-[#151875] font-bold mr-2">
+                          ${discountedPrice.toFixed(2)}
+                        </span>
+                        <span className="text-[#FB2448] line-through">
+                          ${item.price}
+                        </span>
                       </div>
-                    )}
-                    <h2 className="text-lg font-semibold mt-4">{item.name}</h2>
-                    <div className="flex items-center mt-2">
-                      <span className="text-[#151875] font-bold mr-2">
-                        ${discountedPrice.toFixed(2)}
-                      </span>
-                      <span className="text-[#FB2448] line-through">
-                        ${item.price}
-                      </span>
-                    </div>
-                    <button
-                      className="bg-[#FB2E86] text-white font-semibold py-3 px-6 rounded-full shadow-md hover:bg-[#D92E5B] transition-all duration-300 transform hover:scale-105 focus:ring-4 focus:ring-[#FF3E6C]/50"
-                      onClick={(e) => handleAddToCart(e, item)}
-                    >
-                      Add to Cart
-                    </button>
-                  </Link>
-                </div>
-              );
-            })}
+                      <button
+                        className="bg-[#FB2E86] text-white font-semibold py-3 px-6 rounded-full shadow-md hover:bg-[#D92E5B] transition-all duration-300 transform hover:scale-105 focus:ring-4 focus:ring-[#FF3E6C]/50"
+                        onClick={(e) => handleAddToCart(e, item)}
+                      >
+                        Add to Cart
+                      </button>
+                    </Link>
+                  </div>
+                );
+              })
+            : // If no products are available
+            <div className="col-span-3 text-center p-4 bg-yellow-100 text-yellow-800 rounded-md">
+              No products available at the moment.
+            </div>}
       </div>
     </div>
   );
