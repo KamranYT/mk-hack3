@@ -78,7 +78,9 @@ const Hero = () => {
   if (error) {
     return (
       <div className="max-width hero flex flex-col xl:flex-row items-center xl:justify-between xl:pt-20 px-6 sm:px-10">
-        <div className="text-center xl:text-left text-red-600 font-semibold">{error}</div>
+        <div className="text-center xl:text-left text-red-600 font-semibold">
+          {error}
+        </div>
       </div>
     );
   }
