@@ -142,7 +142,7 @@ import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { Image as IImage } from "sanity";
 import { urlForImage } from "@/sanity/lib/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export const getProductsData = async () => {
@@ -169,60 +169,58 @@ export default function TopCategories() {
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   const [data, setData] = useState<IProduct[]>([]);
 
-  useState(() => {
-    // Fetch Data on Mount
+  useEffect(() => {
     getProductsData().then((res) => setData(res));
-  },);
+  }, []);
 
   const handleProductClick = (productId: string) => {
     setSelectedProductId(productId);
   };
+
   const closeModal = () => {
     setSelectedProductId(null);
-  }
+  };
 
   return (
-    <section className="py-16 px-4 ">
+    <section className="py-12 px-4">
       {/* Heading */}
-      <h1 className="text-4xl font-bold text-center text-[#151875] mb-10">
+      <h1 className="text-[#151875] text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-10">
         Top Categories
       </h1>
 
-      {/* Grid Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
+      {/* Responsive Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
         {data.map((item) => (
           <div
             key={item._id}
-            className="flex flex-col items-center justify-center cursor-pointer"
+            className="flex flex-col items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-105"
             onClick={() => handleProductClick(item._id)}
           >
-            {/* Circular Box with Shadow */}
-            
+            {/* Circular Box */}
             <div
-              className={`w-[269px] h-[269px] bg-[#F6F7FB] rounded-full flex items-center justify-center relative shadow-lg transition-all duration-300 ${
+              className={`w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 bg-[#F6F7FB] rounded-full flex items-center justify-center relative shadow-md transition-all duration-300 ${
                 selectedProductId === item._id ? "scale-110 shadow-2xl" : ""
               }`}
             >
               <Image
                 src={urlForImage(item.image).url()}
                 alt={item.description}
-                width={150}
-                height={150}
+                width={160}
+                height={160}
                 className="object-contain transition-all duration-300"
               />
               {selectedProductId === item._id && (
-                
                 <button
-                onClick={closeModal}
-                className="absolute bottom-4 bg-green-500 text-white px-4 py-1 rounded-md">
-                  <Link href={`/product/${item._id}`} passHref>View Detail</Link>
+                  onClick={closeModal}
+                  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-1 rounded-md shadow-md hover:bg-green-600 transition"
+                >
+                  <Link href={`/product/${item._id}`}>View Detail</Link>
                 </button>
-                
               )}
             </div>
-            
+
             {/* Title and Price */}
-            <h2 className="text-lg font-semibold text-[#151875] mt-4">
+            <h2 className="text-lg sm:text-xl font-semibold text-[#151875] mt-4 text-center">
               {item.name}
             </h2>
             <p className="text-sm text-[#151875] mt-1">${item.price}</p>

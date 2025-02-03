@@ -28,11 +28,14 @@ const ShopexOffer: React.FC = () => {
   ];
 
   return (
-    <div className="text-center">
-      <h1 className="text-[#151875] text-4xl mb-8 font-bold">
+    <div className="text-center px-4 sm:px-8 md:px-12 lg:px-16 py-12">
+      {/* Section Title */}
+      <h1 className="text-[#151875] text-2xl sm:text-3xl lg:text-4xl font-bold mb-10">
         What Shopex Offer!
       </h1>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+
+      {/* Responsive Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center items-center">
         {offers.map((offer, index) => (
           <OfferCard
             key={index}
@@ -53,16 +56,16 @@ interface OfferCardProps {
 }
 
 const OfferCard: React.FC<OfferCardProps> = ({ img, title, description }) => (
-  <div className="w-[270px] h-[270] bg-white shadow-lg rounded-lg flex flex-col items-center p-5 text-center py-14">
+  <div className="w-full max-w-[300px] bg-white shadow-lg rounded-lg flex flex-col items-center p-6 text-center transition-transform transform hover:scale-105">
     <Image
       src={img}
-      width={270}
-      height={320}
+      width={70}
+      height={70}
       alt={title}
-      className="w-16 h-16 mb-4"
+      className="mb-4"
     />
-    <h3 className="text-lg text-gray-800 mb-2 font-semibold">{title}</h3>
-    <p className="text-sm text-gray-600">{description}</p>
+    <h3 className="text-lg sm:text-xl font-semibold text-[#151875]">{title}</h3>
+    <p className="text-sm text-gray-600 mt-2">{description}</p>
   </div>
 );
 
